@@ -1,6 +1,6 @@
 import random
 
-from board import Board
+from models.board import Board
 
 WORD_LIST = [
     "apple",

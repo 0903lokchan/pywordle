@@ -1,4 +1,4 @@
-from guess import Guess
+from models.guess import Guess
 
 class Board:
     """A class for handling the answer and guesses of the game.

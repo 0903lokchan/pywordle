@@ -1,4 +1,4 @@
-from letter import Letter
+from models.letter import Letter
 
 class Guess:
     """
