@@ -16,9 +16,10 @@ def test_partially_correct_guess():
     assert guess.letters[0].is_correct  # w
     assert guess.letters[1].is_correct  # o
     assert guess.letters[2].is_correct  # r
-    assert guess.letters[3].is_correct  # d
     # 'l' should be absent
-    assert guess.letters[4].is_absent   # l
+    assert guess.letters[3].is_absent  # l
+    # 'd' should be present
+    assert guess.letters[4].is_present   # d
     assert not guess.all_correct
 
 def test_wrong_position_letters():
