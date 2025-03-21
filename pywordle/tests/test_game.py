@@ -42,7 +42,8 @@ def test_game_over_after_win(game):
     """Test that game ends after a correct guess"""
     game.make_guess("hello")
     # Try to make another guess after winning
-    game.make_guess("world")
+    with pytest.raises(ValueError):
+        game.make_guess("world")
     assert game.game_over
     assert game.won
     assert len(game.board.guesses) == 1

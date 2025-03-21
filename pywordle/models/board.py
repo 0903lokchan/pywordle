@@ -9,6 +9,9 @@ class Board:
         self.won = False
 
     def add_guess(self, guess_word: str) -> None:
+        if self.won:
+            raise ValueError("Game already won")
+        
         self.guesses.append(Guess(guess_word, self.word))
         if self.guesses[-1].all_correct:
             self.won = True
