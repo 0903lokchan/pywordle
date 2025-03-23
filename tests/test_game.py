@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch
-from models.game import Game, WORD_LIST, MAX_GUESSES
+from pywordle.models.game import Game, WORD_LIST, MAX_GUESSES
 
 
 @pytest.fixture

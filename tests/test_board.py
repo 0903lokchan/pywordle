@@ -1,5 +1,5 @@
 import pytest
-from models.board import Board
+from pywordle.models.board import Board
 
 
 @pytest.fixture

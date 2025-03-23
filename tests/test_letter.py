@@ -1,5 +1,5 @@
 import pytest
-from models.letter import Letter
+from pywordle.models.letter import Letter
 
 
 def test_letter_initialization():

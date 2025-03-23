@@ -1,8 +1,8 @@
 import re
 import pytest
 from unittest.mock import patch, MagicMock
-from cli import WordleCLI
-from models.guess import Guess
+from pywordle.cli import WordleCLI
+from pywordle.models.guess import Guess
 
 @pytest.fixture
 def cli():

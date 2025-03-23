@@ -15,6 +15,7 @@ pytest = "^8.3.5"
 
 [tool.pytest.ini_options]
 testpaths = ["pywordle/tests"]
+pythonpath = ["pywordle"]
 
 [build-system]
 requires = ["poetry-core"]

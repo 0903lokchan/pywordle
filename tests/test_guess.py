@@ -1,5 +1,5 @@
 import pytest
-from models.guess import Guess
+from pywordle.models.guess import Guess
 
 
 @pytest.mark.parametrize(
