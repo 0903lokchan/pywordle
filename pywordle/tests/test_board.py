@@ -10,7 +10,7 @@ def board():
 
 def test_board_initialization(board):
     """Test that a board is correctly initialized"""
-    assert board.word == "hello"
+    assert board.answer == "hello"
     assert len(board.guesses) == 0
     assert not board.won
 
