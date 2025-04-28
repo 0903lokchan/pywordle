@@ -2,12 +2,6 @@
 
 import pygame
 import sys
-from gui.constants import (
-    CELL_SIZE,
-    CELL_MARGIN,
-    BOARD_MARGIN,
-    KEYBOARD_MARGIN,
-)
 from gui.game_state import GameState
 from gui.event_manager import EventManager
 from gui.renderer import Renderer
@@ -20,42 +14,14 @@ class WordleGUI:
         pygame.init()
         self.game_state = GameState()
 
-        # Calculate board dimensions
-        self.board_width = 5 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
-        self.board_height = 6 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
-
-        # Calculate keyboard dimensions
-        self.keyboard_height = 3 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
-        self.keyboard_width = 10 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
-
-        # Calculate control buttons dimensions
-        self.button_width = CELL_SIZE * 2 + CELL_MARGIN
-        self.control_buttons_width = (self.button_width * 2) + CELL_SIZE + CELL_MARGIN
-
-        # Calculate window dimensions
-        self.window_width = (
-            max(self.board_width, self.keyboard_width, self.control_buttons_width)
-            + 2 * BOARD_MARGIN
-        )
-        self.window_height = (
-            self.board_height
-            + self.keyboard_height
-            + KEYBOARD_MARGIN  # Space between board and keyboard
-            + CELL_SIZE
-            + CELL_MARGIN  # Space for control buttons
-            + 2 * BOARD_MARGIN
-            + 40  # Extra space for message
-        )
-
-        # Create window
-        self.screen = pygame.display.set_mode((self.window_width, self.window_height))
-        pygame.display.set_caption("Wordle")
-
         # Initialize components
+        self.renderer = Renderer(self.game_state)
+        #TODO remove the dependency to display dimensions from EventManager
+        window_width = self.renderer.get_window_dimensions()[0]
+        board_height = self.renderer.get_board_dimensions()[1]
         self.event_manager = EventManager(
-            self.game_state, self.window_width, self.board_height
+            self.game_state, window_width, board_height
         )
-        self.renderer = Renderer(self.screen, self.game_state, self.window_width)
         self.game_state.event_manager = (
             self.event_manager
         )  # Add reference to event manager
