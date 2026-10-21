@@ -14,6 +14,8 @@ from pywordle.gui.constants import (
     KEYBOARD_MARGIN,
 )
 from pywordle.gui.game_state import GameState
+from pywordle.gui.gui_objects.board import Board
+from pywordle.gui.gui_objects.cell import Cell
 from pywordle.models.letter import Letter
 
 
@@ -27,7 +29,8 @@ class Renderer:
         self.font = pygame.font.Font(None, 36)
         self.set_dimension_variables(config)
         self.screen = self.create_screen()
-        self.rect_tree = []
+        self.board = self.create_board()
+        self.rect_tree = [self.board]
 
     def set_dimension_variables(self, config: Optional[dict[str, int]])-> None:
         """Setup all dimension variables either from a provided config object or constants"""
@@ -112,39 +115,40 @@ class Renderer:
         pygame.display.set_caption("Wordle")
         return screen
 
-    def draw_cell(
-        self, letter: Optional[str], x: int, y: int, color: Tuple[int, int, int]
-    ) -> None:
-        """Draw a single cell with a letter"""
-        cell_rect = pygame.Rect(x, y, self.cell_size, self.cell_size)
-        pygame.draw.rect(self.screen, color, cell_rect, border_radius=5)
+    def create_board(self)-> Board:
+        """Create the board and its grid of cells"""
+        board = Board(self.board_margin, self.board_margin, *self.get_board_dimensions())
+        board.create_cells(self.cell_size, self.cell_margin)
+        return board
 
-        if letter:
-            text = self.font.render(letter, True, WHITE)
-            text_rect = text.get_rect(center=cell_rect.center)
+    def draw_cell(self, cell: Cell, color: Tuple[int, int, int]) -> None:
+        """Draw a single cell with its letter"""
+        pygame.draw.rect(self.screen, color, cell, border_radius=5)
+
+        if cell.text:
+            text = self.font.render(cell.text, True, WHITE)
+            text_rect = text.get_rect(center=cell.center)
             self.screen.blit(text, text_rect)
 
     def draw_board(self) -> None:
         """Draw the game board"""
-        for row in range(6):
-            for col in range(5):
-                x = BOARD_MARGIN + col * (self.cell_size + self.cell_margin)
-                y = BOARD_MARGIN + row * (self.cell_size + self.cell_margin)
-
+        for row, cells in enumerate(self.board.cells):
+            for col, cell in enumerate(cells):
+                color = GRAY
                 if row < len(self.game_state.game.board.guesses):
                     letter = self.game_state.game.board.guesses[row].letters[col]
                     color = self.get_letter_color(letter)
-                    self.draw_cell(str(letter), x, y, color)
+                    cell.text = str(letter)
                 elif row == len(self.game_state.game.board.guesses):
                     # Draw current guess
-                    letter = (
+                    cell.text = (
                         self.game_state.current_guess[col]
                         if col < len(self.game_state.current_guess)
-                        else None
+                        else ""
                     )
-                    self.draw_cell(letter, x, y, GRAY)
                 else:
-                    self.draw_cell(None, x, y, GRAY)
+                    cell.text = ""
+                self.draw_cell(cell, color)
 
     def draw_keyboard(self) -> None:
         """Draw the on-screen keyboard"""
