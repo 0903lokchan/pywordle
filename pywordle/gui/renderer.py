@@ -27,6 +27,7 @@ class Renderer:
         self.font = pygame.font.Font(None, 36)
         self.set_dimension_variables(config)
         self.screen = self.create_screen()
+        self.rect_tree = []
 
     def set_dimension_variables(self, config: Optional[dict[str, int]])-> None:
         """Setup all dimension variables either from a provided config object or constants"""
