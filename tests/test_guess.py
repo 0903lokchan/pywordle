@@ -36,7 +36,7 @@ def test_guess_states(guess_word, answer, expected_states):
     """Test different guess scenarios using parameterized inputs"""
     guess = Guess(guess_word, answer)
     for letter, (is_correct, is_present, is_absent) in zip(
-        guess.letters, expected_states
+        guess.letters, expected_states, strict=True
     ):
         assert letter.is_correct == is_correct
         assert letter.is_present == is_present
