@@ -29,8 +29,8 @@ def event_manager(game_state):
 def renderer(game_state):
     """Fixture to create a renderer instance for testing"""
     pygame.init()
-    screen = MagicMock()
-    renderer = Renderer(screen, game_state, 800)
+    with patch("pygame.display.set_mode"), patch("pygame.display.set_caption"):
+        renderer = Renderer(game_state)
     yield renderer
     pygame.quit()
 
@@ -136,23 +136,27 @@ def test_renderer_letter_colors(renderer):
 
 def test_window_dimensions(gui):
     """Test window size calculations"""
+    renderer = gui.renderer
+    board_width, board_height = renderer.get_board_dimensions()
+    keyboard_width, keyboard_height = renderer.get_keyboard_dimensions()
+    control_buttons_width, _ = renderer.get_control_button_dimensions()
+
     # Test board dimensions
-    assert gui.board_width == 330  # 5 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
-    assert gui.board_height == 395  # 6 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
+    assert board_width == 330  # 5 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
+    assert board_height == 395  # 6 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
 
     # Test keyboard dimensions
-    assert gui.keyboard_height == 200  # 3 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
-    assert gui.keyboard_width == 655  # 10 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
+    assert keyboard_height == 200  # 3 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
+    assert keyboard_width == 655  # 10 * (CELL_SIZE + CELL_MARGIN) + CELL_MARGIN
 
     # Test window dimensions
     assert (
-        gui.window_width
-        >= max(gui.board_width, gui.keyboard_width, gui.control_buttons_width)
-        + 2 * BOARD_MARGIN
+        renderer.window_width
+        >= max(board_width, keyboard_width, control_buttons_width) + 2 * BOARD_MARGIN
     )
-    assert gui.window_height >= (
-        gui.board_height
-        + gui.keyboard_height
+    assert renderer.window_height >= (
+        board_height
+        + keyboard_height
         + KEYBOARD_MARGIN
         + CELL_SIZE
         + CELL_MARGIN

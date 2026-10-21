@@ -1,7 +1,7 @@
 """Rendering for the Wordle GUI"""
 import pygame
 from typing import Optional, Tuple
-from gui.constants import (
+from pywordle.gui.constants import (
     BLACK,
     WHITE,
     GRAY,
@@ -13,8 +13,8 @@ from gui.constants import (
     BOARD_MARGIN,
     KEYBOARD_MARGIN,
 )
-from gui.game_state import GameState
-from models.letter import Letter
+from pywordle.gui.game_state import GameState
+from pywordle.models.letter import Letter
 
 
 class Renderer:
@@ -94,7 +94,7 @@ class Renderer:
         component_dimensions = {
             "board": self.get_board_dimensions(),
             "kyboard_padding": (0, self.keyboard_margin), # flexible width
-            "keyboard": self.get_board_dimensions(),
+            "keyboard": self.get_keyboard_dimensions(),
             "control_buttons": self.get_control_button_dimensions(),
             "message_box": (0, 40) # flexible width
         }
@@ -102,13 +102,13 @@ class Renderer:
         # Calculate window dimensions
         component_widths = [dimensions[0] for _, dimensions in component_dimensions.items()]
         window_width = max(component_widths) + 2 * self.board_margin #the widest component + margins
-        window_height = sum([dimensions[1] for _, dimensions in component_dimensions.items()]) + 2 * BOARD_MARGIN
+        window_height = sum([dimensions[1] for _, dimensions in component_dimensions.items()]) + 2 * self.board_margin
         return window_width, window_height
     
     def create_screen(self)-> pygame.Surface:
         """Create a pygame screen for displaying the game"""
-        window_width, window_height = self.get_window_dimensions()
-        screen = pygame.display.set_mode((window_width, window_height))
+        self.window_width, self.window_height = self.get_window_dimensions()
+        screen = pygame.display.set_mode((self.window_width, self.window_height))
         pygame.display.set_caption("Wordle")
         return screen
 

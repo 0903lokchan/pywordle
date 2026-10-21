@@ -1,4 +1,4 @@
-from models.letter import Letter
+from pywordle.models.letter import Letter
 
 class Guess:
     """

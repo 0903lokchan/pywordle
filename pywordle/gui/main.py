@@ -2,9 +2,9 @@
 
 import pygame
 import sys
-from gui.game_state import GameState
-from gui.event_manager import EventManager
-from gui.renderer import Renderer
+from pywordle.gui.game_state import GameState
+from pywordle.gui.event_manager import EventManager
+from pywordle.gui.renderer import Renderer
 
 
 class WordleGUI:

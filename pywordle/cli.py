@@ -1,7 +1,7 @@
 import sys
 from typing import Optional
-from models.game import Game
-from models.letter import Letter
+from pywordle.models.game import Game
+from pywordle.models.letter import Letter
 
 
 class WordleCLI:

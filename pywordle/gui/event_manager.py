@@ -2,7 +2,7 @@
 
 import pygame
 from typing import Optional, Tuple, Any
-from gui.constants import CELL_SIZE, CELL_MARGIN, BOARD_MARGIN, KEYBOARD_MARGIN
+from pywordle.gui.constants import CELL_SIZE, CELL_MARGIN, BOARD_MARGIN, KEYBOARD_MARGIN
 
 
 class EventManager:

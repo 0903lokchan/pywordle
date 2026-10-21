@@ -2,7 +2,7 @@
 
 import pygame
 from typing import Any
-from models.game import Game
+from pywordle.models.game import Game
 
 
 class GameState:
