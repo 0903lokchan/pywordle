@@ -1,4 +1,5 @@
 import pytest
+
 from pywordle.models.board import Board
 
 

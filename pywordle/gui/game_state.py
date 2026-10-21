@@ -1,7 +1,9 @@
 """Game state management for the Wordle GUI"""
 
-import pygame
 from typing import Any
+
+import pygame
+
 from pywordle.models.game import Game
 
 

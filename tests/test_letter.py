@@ -1,4 +1,5 @@
 import pytest
+
 from pywordle.models.letter import Letter
 
 

@@ -1,7 +1,8 @@
 import argparse
 
-from pywordle.gui.main import main as gui_main
 from pywordle.cli import main as cli_main
+from pywordle.gui.main import main as gui_main
+
 
 def main(cli_mode: bool = False):
     if cli_mode:

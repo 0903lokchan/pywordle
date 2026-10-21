@@ -1,8 +1,11 @@
 import re
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import patch, MagicMock
+
 from pywordle.cli import WordleCLI
 from pywordle.models.guess import Guess
+
 
 @pytest.fixture
 def cli():
@@ -42,7 +45,7 @@ def test_get_valid_guess(cli, input_value, expected_output):
 def test_get_valid_guess_invalid_input(cli, input_sequence, expected_output, capsys):
     """Test getting invalid guesses from user"""
     with patch("builtins.input", side_effect=input_sequence):
-        guess = cli.get_valid_guess()
+        cli.get_valid_guess()
         captured = capsys.readouterr()
         assert expected_output in captured.out
 

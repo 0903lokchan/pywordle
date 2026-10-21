@@ -1,9 +1,11 @@
 """Main GUI module for the Wordle game"""
 
-import pygame
 import sys
-from pywordle.gui.game_state import GameState
+
+import pygame
+
 from pywordle.gui.event_manager import EventManager
+from pywordle.gui.game_state import GameState
 from pywordle.gui.renderer import Renderer
 
 
@@ -51,7 +53,7 @@ def main():
     try:
         gui = WordleGUI()
         gui.run()
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001 - top-level catch-all reports any error and exits
         print(f"\nAn error occurred: {e}")
         sys.exit(1)
 

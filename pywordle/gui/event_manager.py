@@ -1,8 +1,10 @@
 """Event handling for the Wordle GUI"""
 
+from typing import Any
+
 import pygame
-from typing import Optional, Tuple, Any
-from pywordle.gui.constants import CELL_SIZE, CELL_MARGIN, BOARD_MARGIN, KEYBOARD_MARGIN
+
+from pywordle.gui.constants import BOARD_MARGIN, CELL_MARGIN, CELL_SIZE, KEYBOARD_MARGIN
 
 
 class EventManager:
@@ -40,7 +42,7 @@ class EventManager:
                     self.handle_key_press(event.unicode.upper())
         return True
 
-    def handle_keyboard_click(self, pos: Tuple[int, int]) -> Optional[str]:
+    def handle_keyboard_click(self, pos: tuple[int, int]) -> str | None:
         """Handle clicks on the on-screen keyboard"""
         keyboard_y = self.board_height + BOARD_MARGIN + KEYBOARD_MARGIN
 

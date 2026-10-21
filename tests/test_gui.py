@@ -1,16 +1,18 @@
-import pytest
+from unittest.mock import MagicMock, patch
+
 import pygame
-from unittest.mock import patch, MagicMock
-from pywordle.gui.main import WordleGUI
-from pywordle.gui.game_state import GameState
-from pywordle.gui.event_manager import EventManager
-from pywordle.gui.renderer import Renderer
+import pytest
+
 from pywordle.gui.constants import (
-    CELL_SIZE,
-    CELL_MARGIN,
     BOARD_MARGIN,
+    CELL_MARGIN,
+    CELL_SIZE,
     KEYBOARD_MARGIN,
 )
+from pywordle.gui.event_manager import EventManager
+from pywordle.gui.game_state import GameState
+from pywordle.gui.main import WordleGUI
+from pywordle.gui.renderer import Renderer
 
 
 @pytest.fixture

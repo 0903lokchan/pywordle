@@ -1,5 +1,6 @@
 from pywordle.models.letter import Letter
 
+
 class Guess:
     """
     A class that represents a guess in the game. With a check method to check if the guess is correct.

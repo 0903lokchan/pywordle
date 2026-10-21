@@ -1,5 +1,5 @@
 import sys
-from typing import Optional
+
 from pywordle.models.game import Game
 from pywordle.models.letter import Letter
 
@@ -18,7 +18,7 @@ class WordleCLI:
             self.display_guess_result(guess.letters)
         print("=" * 30 + "\n")
 
-    def get_valid_guess(self) -> Optional[str]:
+    def get_valid_guess(self) -> str | None:
         """Get a valid guess from the user"""
         while True:
             guess = input("Enter your guess (5 letters): ").strip().lower()
@@ -91,7 +91,7 @@ def main():
     except KeyboardInterrupt:
         print("\nGame interrupted by user")
         sys.exit(0)
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001 - top-level catch-all reports any error and exits
         print(f"\nAn error occurred: {e}")
         sys.exit(1)
         

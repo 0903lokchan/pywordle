@@ -1,17 +1,18 @@
 """Rendering for the Wordle GUI"""
+
 import pygame
-from typing import Optional, Tuple
+
 from pywordle.gui.constants import (
     BLACK,
-    WHITE,
-    GRAY,
-    YELLOW,
-    GREEN,
-    DARK_GRAY,
-    CELL_SIZE,
-    CELL_MARGIN,
     BOARD_MARGIN,
+    CELL_MARGIN,
+    CELL_SIZE,
+    DARK_GRAY,
+    GRAY,
+    GREEN,
     KEYBOARD_MARGIN,
+    WHITE,
+    YELLOW,
 )
 from pywordle.gui.game_state import GameState
 from pywordle.gui.gui_objects.board import Board
@@ -23,7 +24,7 @@ class Renderer:
     """Handles all rendering for the Wordle GUI"""
 
     def __init__(
-        self, game_state: GameState, config: Optional[dict[str, int]]=None
+        self, game_state: GameState, config: dict[str, int] | None=None
     ):
         self.game_state = game_state
         self.font = pygame.font.Font(None, 36)
@@ -32,7 +33,7 @@ class Renderer:
         self.board = self.create_board()
         self.rect_tree = [self.board]
 
-    def set_dimension_variables(self, config: Optional[dict[str, int]])-> None:
+    def set_dimension_variables(self, config: dict[str, int] | None)-> None:
         """Setup all dimension variables either from a provided config object or constants"""
         if config:
             self.cell_size = config["cell_size"]
@@ -53,7 +54,7 @@ class Renderer:
         self.draw_message()
         pygame.display.flip()
 
-    def get_letter_color(self, letter: Letter) -> Tuple[int, int, int]:
+    def get_letter_color(self, letter: Letter) -> tuple[int, int, int]:
         """Get the color for a letter based on its state"""
         if letter.is_correct:
             return GREEN
@@ -63,7 +64,7 @@ class Renderer:
             return DARK_GRAY
         return GRAY
     
-    def get_board_dimensions(self)-> Tuple[int, int]:
+    def get_board_dimensions(self)-> tuple[int, int]:
         """Calculate the board dimensions from constants"""
         # 6 rows of 5-letter guesses
         board_row = 6
@@ -73,7 +74,7 @@ class Renderer:
         board_height = board_row * (self.cell_size + self.cell_margin) + self.cell_margin
         return board_width, board_height
     
-    def get_keyboard_dimensions(self)-> Tuple[int, int]:
+    def get_keyboard_dimensions(self)-> tuple[int, int]:
         """Calculate the keyboard dimensions from constants"""
         # Simulate a QWERTY keyboard with 3 rows and 10 keys on the widest row
         keyboard_row = 3
@@ -83,7 +84,7 @@ class Renderer:
         keyboard_height = keyboard_row * (self.cell_size + self.cell_margin) + self.cell_margin
         return keyboard_width, keyboard_height
     
-    def get_control_button_dimensions(self)-> Tuple[int, int]:
+    def get_control_button_dimensions(self)-> tuple[int, int]:
         """Calculate control buttons dimensions"""
         # Control buttons are 2-cell wide
         button_width = self.cell_size * 2 + self.cell_margin
@@ -91,7 +92,7 @@ class Renderer:
         control_buttons_height = self.cell_size + self.cell_margin * 2
         return control_buttons_width, control_buttons_height
     
-    def get_window_dimensions(self)-> Tuple[int, int]:
+    def get_window_dimensions(self)-> tuple[int, int]:
         """Decide window dimensions based on all the components' dimensions"""
 
         component_dimensions = {
@@ -121,7 +122,7 @@ class Renderer:
         board.create_cells(self.cell_size, self.cell_margin)
         return board
 
-    def draw_cell(self, cell: Cell, color: Tuple[int, int, int]) -> None:
+    def draw_cell(self, cell: Cell, color: tuple[int, int, int]) -> None:
         """Draw a single cell with its letter"""
         pygame.draw.rect(self.screen, color, cell, border_radius=5)
 
